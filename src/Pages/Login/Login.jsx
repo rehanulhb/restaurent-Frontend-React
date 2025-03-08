@@ -1,4 +1,4 @@
-
+import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 
 const Login = () => {
     const handleLogin = event =>{
@@ -29,9 +29,14 @@ const Login = () => {
               <label className="fieldset-label">Password</label>
               <br />
               <input type="password" name="password" className="input" placeholder="Password" />
+              <br />
+              <LoadCanvasTemplate></LoadCanvasTemplate>
+              <br />
+              <input type="text" name="password" className="input" placeholder="Password" />
               <div>
                 <a className="link link-hover">Forgot password?</a>
               </div>
+              
               
               <input className="btn btn-primary" type="submit" value="Login" />
             </fieldset>
