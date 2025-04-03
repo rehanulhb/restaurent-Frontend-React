@@ -1,28 +1,40 @@
-import { useEffect, useRef, useState } from 'react';
-import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import { useContext, useEffect, useRef, useState } from "react";
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  validateCaptcha,
+} from "react-simple-captcha";
+import { AuthContext } from "../../providers/AuthProvider";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const captchaRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
 
-    useEffect(()=>{
-      loadCaptchaEnginge(6);
-    }, [])
+  const { signIn } = useContext(AuthContext);
 
-    const handleLogin = event =>{
-        event.preventDefault();
-        const form = event.target;
-        const email = form.email.value;
-        const password = form.password.value;
-        console.log(email,password)
-    }
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
 
-    const handleValidateCaptcha = () => {
-      const user_captcha_value = captchaRef.current.value;
-      if(validateCaptcha(user_captcha_value)){
-          setDisabled(false);
-      }
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+    signIn(email, password).then((result) => {
+      const user = result.user;
+      console.log(user);
+    });
+  };
+
+  const handleValidateCaptcha = () => {
+    const user_captcha_value = captchaRef.current.value;
+    if (validateCaptcha(user_captcha_value)) {
+      setDisabled(false);
     }
+  };
 
   return (
     <div className="hero bg-base-200 min-h-screen">
@@ -40,27 +52,58 @@ const Login = () => {
             <fieldset className="fieldset">
               <label className="fieldset-label">Email</label>
               <br />
-              <input type="email" name="email" className="input mt-2" placeholder="Email" />
+              <input
+                type="email"
+                name="email"
+                className="input mt-2"
+                placeholder="Email"
+              />
               <br />
               <label className="fieldset-label mt-2">Password</label>
               <br />
-              <input type="password" name="password" className="input" placeholder="Password" />
+              <input
+                type="password"
+                name="password"
+                className="input"
+                placeholder="Password"
+              />
               <br />
               <br />
               <LoadCanvasTemplate></LoadCanvasTemplate>
               <br />
-              <input ref={captchaRef} type="text" name="captcha" className="input mb-2" placeholder="Type the Above Captcha" />
+              <input
+                ref={captchaRef}
+                type="text"
+                name="captcha"
+                className="input mb-2"
+                placeholder="Type the Above Captcha"
+              />
               <br />
-              <button onClick={handleValidateCaptcha} className='btn btn-outline btn-xs mt-2'>Validate</button>
-              <div className='mb-2'>
+              <button
+                onClick={handleValidateCaptcha}
+                className="btn btn-outline btn-xs mt-2"
+              >
+                Validate
+              </button>
+              <div className="mb-2">
                 <a className="link link-hover mb-4">Forgot password?</a>
-                
               </div>
               <br />
-              
-              <input disabled={disabled} className="btn btn-primary" type="submit" value="Login" />
+
+              <input
+                disabled={disabled}
+                className="btn btn-primary"
+                type="submit"
+                value="Login"
+              />
             </fieldset>
           </form>
+
+          <p>
+            <small>
+              New Here? <Link to="/signup"> Create an account</Link>
+            </small>
+          </p>
         </div>
       </div>
     </div>
