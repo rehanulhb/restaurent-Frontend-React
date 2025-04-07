@@ -56,12 +56,22 @@ const SignUp = () => {
                   required: true,
                   minLength: 6,
                   maxLength: 20,
+                  pattern:
+                    /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z])$/,
                 })}
                 className="input"
                 placeholder="Password"
               />
               {errors.password?.type === "required" && (
-                <p className="text-red-600">Password name is required</p>
+                <p className="text-red-600">Password is required</p>
+              )}
+              {errors.password?.type === "minLength" && (
+                <p className="text-red-600">Password must be 6 Characters</p>
+              )}
+              {errors.password?.type === "maxLength" && (
+                <p className="text-red-600">
+                  Password must be less then 20 characters
+                </p>
               )}
               <div>
                 <a className="link link-hover">Forgot password?</a>
