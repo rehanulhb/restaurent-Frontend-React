@@ -52,6 +52,18 @@ const SignUp = () => {
                 )}
 
                 <br />
+                <label className="fieldset-label">Photo URL</label>
+                <input
+                  type="text"
+                  {...register("photoURL", { required: true })}
+                  className="input imput-bordered"
+                  placeholder="Phtot URL"
+                />
+                {errors.photoURL && (
+                  <span className="text-red-600">Photo URL is required</span>
+                )}
+
+                <br />
                 <label className="fieldset-label">Email</label>
                 <input
                   type="email"
