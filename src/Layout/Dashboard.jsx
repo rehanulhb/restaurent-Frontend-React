@@ -1,11 +1,13 @@
 import {
   FaAd,
+  FaBook,
   FaCalendar,
   FaEnvelope,
   FaHome,
   FaList,
   FaSearch,
   FaShoppingCart,
+  FaUsers,
   FaUtensils,
 } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
@@ -34,18 +36,18 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/review">
+                <NavLink to="/dashboard/manageitems">
                   <FaList></FaList>Manage Items
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/cart">
-                  <FaShoppingCart></FaShoppingCart>My Cart ({cart.length})
+                <NavLink to="/dashboard/bookings">
+                  <FaBook></FaBook>Manage Bookings
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/bookings">
-                  <FaList></FaList>Bookings
+                <NavLink to="/dashboard/users">
+                  <FaUsers></FaUsers>All Users
                 </NavLink>
               </li>
             </>
