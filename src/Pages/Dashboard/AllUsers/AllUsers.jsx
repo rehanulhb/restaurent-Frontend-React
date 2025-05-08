@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { FaTrashAlt, FaUsers } from "react-icons/fa";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -10,6 +11,9 @@ const AllUsers = () => {
       return res.data;
     },
   });
+
+  const handleDeleteUser = (user) => {};
+
   return (
     <div>
       <div className="flex justify-evenly my-4">
@@ -17,24 +21,40 @@ const AllUsers = () => {
         <h2 className="text-3xl">Total Users: {users.length}</h2>
       </div>
       <div className="overflow-x-auto">
-        <table className="table table-zebra">
+        <table className="table table-zebra wifull">
           {/* head */}
           <thead>
             <tr>
               <th></th>
               <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {/* row 1 */}
-            {users.map((user) => (
+            {users.map((user, index) => (
               <tr key={user._id}>
-                <th>1</th>
-                <td>Cy Ganderton</td>
-                <td>Quality Control Specialist</td>
-                <td>Blue</td>
+                <th>{index + 1}</th>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>
+                  <button
+                    onClick={() => handleDeleteUser(user)}
+                    className="btn btn-lg"
+                  >
+                    <FaUsers className="text-white-400 text-2xl"></FaUsers>
+                  </button>
+                </td>
+                <td>
+                  <button
+                    onClick={() => handleDeleteUser(user)}
+                    className="btn btn-ghost btn-lg"
+                  >
+                    <FaTrashAlt className="text-red-400"></FaTrashAlt>
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
