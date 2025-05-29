@@ -6,6 +6,7 @@ const AdminRoute = (children) => {
   const [user, loading] = useAuth();
   const [isAdmin, isAdminLoading] = useAdmin();
   const location = useLocation();
+
   if (loading || isAdminLoading) {
     return <progress className="progress w-56"></progress>;
   }
