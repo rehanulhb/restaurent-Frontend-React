@@ -15,24 +15,58 @@ const AddItems = () => {
       ></SectionTitle>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <input {...register("name")} />
-          <select {...register("category")}>
-            <option value="salad">Salad</option>
-            <option value="male">male</option>
-            <option value="other">other</option>
-          </select>
-          <select
-            {...register("category")}
-            defaultValue="Pick a color"
-            className="select"
-          >
-            <option disabled={true}>Select a Category</option>
-            <option value="salad">Salad</option>
-            <option value="pizza">Pizza</option>
-            <option value="soup">Soup</option>
-            <option value="dessert">Dessert</option>
-            <option value="drinks">Drinks</option>
-          </select>
+          <fieldset className="fieldset my-6">
+            <legend className="fieldset-legend my-1">Receipe Name*</legend>
+            <input
+              type="text"
+              className="input input-bordered w-full"
+              {...register("name")}
+              placeholder="Receipe Name"
+            />
+          </fieldset>
+          <div>
+            <div>
+              <fieldset className="fieldset">
+                <legend className="fieldset-legend">Category Name*</legend>
+                <select
+                  {...register("category")}
+                  defaultValue="Pick a color"
+                  className="select input-bordered w-full my-2"
+                >
+                  <option disabled={false}>Select a Category</option>
+                  <option value="salad">Salad</option>
+                  <option value="pizza">Pizza</option>
+                  <option value="soup">Soup</option>
+                  <option value="dessert">Dessert</option>
+                  <option value="drinks">Drinks</option>
+                </select>
+              </fieldset>
+            </div>
+            <div>
+              <fieldset className="fieldset my-6">
+                <legend className="fieldset-legend my-1">Price*</legend>
+                <input
+                  type="number"
+                  className="input input-bordered w-full"
+                  {...register("name")}
+                  placeholder="Price"
+                />
+              </fieldset>
+            </div>
+            <div>
+              <fieldset className="fieldset">
+                <legend className="fieldset-legend">Receipe details</legend>
+                <textarea
+                  className="textarea h-24 input-bordered w-full"
+                  placeholder="Receipe details"
+                ></textarea>
+              </fieldset>
+            </div>
+            <div>
+              <input type="file" className="file-input w-full" />
+            </div>
+          </div>
+
           <input type="submit" />
         </form>
       </div>
