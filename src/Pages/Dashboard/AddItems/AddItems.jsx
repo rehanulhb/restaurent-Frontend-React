@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
+import { FaUtensils, FaUtensilSpoon } from "react-icons/fa";
 
 const AddItems = () => {
   const { register, handleSubmit } = useForm();
@@ -20,7 +21,7 @@ const AddItems = () => {
             <input
               type="text"
               className="input input-bordered w-full"
-              {...register("name")}
+              {...register("name", { required: true })}
               placeholder="Receipe Name"
             />
           </fieldset>
@@ -29,11 +30,11 @@ const AddItems = () => {
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Category Name*</legend>
                 <select
-                  {...register("category")}
+                  {...register("category", { required: true })}
                   defaultValue="Pick a color"
                   className="select input-bordered w-full my-2"
                 >
-                  <option disabled={false}>Select a Category</option>
+                  <option disabled={true}>Select a Category</option>
                   <option value="salad">Salad</option>
                   <option value="pizza">Pizza</option>
                   <option value="soup">Soup</option>
@@ -48,7 +49,7 @@ const AddItems = () => {
                 <input
                   type="number"
                   className="input input-bordered w-full"
-                  {...register("name")}
+                  {...register("price", { required: true })}
                   placeholder="Price"
                 />
               </fieldset>
@@ -57,17 +58,24 @@ const AddItems = () => {
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Receipe details</legend>
                 <textarea
+                  {...register("recipe", { required: true })}
                   className="textarea h-24 input-bordered w-full"
                   placeholder="Receipe details"
                 ></textarea>
               </fieldset>
             </div>
             <div>
-              <input type="file" className="file-input w-full" />
+              <input
+                {...register("image", { required: true })}
+                type="file"
+                className="file-input w-full"
+              />
             </div>
           </div>
 
-          <input type="submit" />
+          <button className="btn mt-4">
+            Add Item<FaUtensils className="ml-4"></FaUtensils>
+          </button>
         </form>
       </div>
     </div>
