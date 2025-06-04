@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import { FaUtensils, FaUtensilSpoon } from "react-icons/fa";
 
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+
 const AddItems = () => {
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
@@ -31,10 +33,12 @@ const AddItems = () => {
                 <legend className="fieldset-legend">Category Name*</legend>
                 <select
                   {...register("category", { required: true })}
-                  defaultValue="Pick a color"
+                  defaultValue="default"
                   className="select input-bordered w-full my-2"
                 >
-                  <option disabled={true}>Select a Category</option>
+                  <option value="default" disabled={true}>
+                    Select a Category
+                  </option>
                   <option value="salad">Salad</option>
                   <option value="pizza">Pizza</option>
                   <option value="soup">Soup</option>
