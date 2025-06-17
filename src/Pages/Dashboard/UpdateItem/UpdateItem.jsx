@@ -10,9 +10,9 @@ const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const UpdateItem = () => {
-  const item = useLoaderData();
+  const { name, category, recipe, price, _id } = useLoaderData();
   const { register, handleSubmit, reset } = useForm();
-  console.log(item);
+
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const onSubmit = async (data) => {
@@ -33,15 +33,15 @@ const UpdateItem = () => {
         recipe: data.recipe,
         image: res.data.dsiplay_url,
       };
-      const menuRes = await axiosSecure.post("/menu", menuItem);
+      const menuRes = await axiosSecure.patch(`/menu/${_id}`, menuItem);
       console.log(menuRes.data);
-      if (menuRes.data.insertedId) {
+      if (menuRes.data.modifiedCount > 0) {
         //Show sucess Popup
-        reset();
+        //reset();
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: `${data.name} is added to the database `,
+          title: `${data.name} is updated to the database `,
           showConfirmButton: false,
           timer: 1500,
         });
@@ -62,6 +62,7 @@ const UpdateItem = () => {
             <legend className="fieldset-legend my-1">Receipe Name*</legend>
             <input
               type="text"
+              defaultValue={name}
               className="input input-bordered w-full"
               {...register("name", { required: true })}
               placeholder="Receipe Name"
@@ -73,7 +74,7 @@ const UpdateItem = () => {
                 <legend className="fieldset-legend">Category Name*</legend>
                 <select
                   {...register("category", { required: true })}
-                  defaultValue="default"
+                  defaultValue={category}
                   className="select input-bordered w-full my-2"
                 >
                   <option value="default" disabled={true}>
@@ -92,6 +93,7 @@ const UpdateItem = () => {
                 <legend className="fieldset-legend my-1">Price*</legend>
                 <input
                   type="number"
+                  defaultValue={price}
                   className="input input-bordered w-full"
                   {...register("price", { required: true })}
                   placeholder="Price"
@@ -102,6 +104,7 @@ const UpdateItem = () => {
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Receipe details</legend>
                 <textarea
+                  defaultValue={recipe}
                   {...register("recipe", { required: true })}
                   className="textarea h-24 input-bordered w-full"
                   placeholder="Receipe details"
@@ -118,7 +121,7 @@ const UpdateItem = () => {
           </div>
 
           <button className="btn mt-4">
-            Update Item<FaUtensils className="ml-4"></FaUtensils>
+            Update Menu Item<FaUtensils className="ml-4"></FaUtensils>
           </button>
         </form>
       </div>
