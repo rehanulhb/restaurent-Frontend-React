@@ -1,4 +1,8 @@
+import { loadStripe } from "@stripe/stripe-js";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
+import { Elements } from "@stripe/react-stripe-js";
+
+const stripePromise = loadStripe("");
 
 const Payment = () => {
   return (
@@ -8,7 +12,7 @@ const Payment = () => {
         subHeading="Please Pay to eat"
       ></SectionTitle>
       <div>
-        <h2 className="text-4xl">Teka o Pakhi tumi uira uira aso</h2>
+        <Elements stripe={stripePromise}></Elements>
       </div>
     </div>
   );
