@@ -14,6 +14,17 @@ const CheckoutForm = () => {
     if (card === null) {
       return;
     }
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card,
+    });
+
+    if (error) {
+      console.log("payment error", error);
+    } else {
+      console.log("payment Method", paymentMethod);
+    }
   };
   return (
     <form onSubmit={handleSubmit}>
