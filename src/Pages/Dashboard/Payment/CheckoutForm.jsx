@@ -49,15 +49,21 @@ const CheckoutForm = () => {
       setError("");
     }
 
-    const {} = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: card,
-        billing_details: {
-          email: user?.email || "anonymous",
-          name: user?.displayName || "anonymous",
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            email: user?.email || "anonymous",
+            name: user?.displayName || "anonymous",
+          },
         },
-      },
-    });
+      });
+    if (confirmError) {
+      console.log("Confirm Error");
+    } else {
+      console.log("Payment Intent", paymentIntent);
+    }
   };
   return (
     <form onSubmit={handleSubmit}>
