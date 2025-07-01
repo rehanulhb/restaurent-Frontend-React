@@ -15,14 +15,14 @@ const CheckoutForm = () => {
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
   useEffect(() => {
-    axiosSecure
-      .post("/create-payment-intent", {
-        price: totalPrice,
-      })
-      .then((res) => {
-        console.log(res.data.clientSecret);
-        setClientSecret(res.data.clientSecret);
-      });
+    if (totalPrice > 0) {
+      axiosSecure
+        .post("/create-payment-intent", { price: totalPrice })
+        .then((res) => {
+          console.log(res.data.clientSecret);
+          setClientSecret(res.data.clientSecret);
+        });
+    }
   }, [axiosSecure, totalPrice]);
 
   const handleSubmit = async (event) => {
@@ -54,8 +54,8 @@ const CheckoutForm = () => {
         payment_method: {
           card: card,
           billing_details: {
-            email: user?.email || "anonymous",
-            name: user?.displayName || "anonymous",
+            email: user?.email,
+            name: user?.displayName,
           },
         },
       });
@@ -64,6 +64,8 @@ const CheckoutForm = () => {
     } else {
       console.log("Payment Intent", paymentIntent);
     }
+
+    console.log("Stripe:", stripe, "ClientSecret:", clientSecret);
   };
   return (
     <form onSubmit={handleSubmit}>
